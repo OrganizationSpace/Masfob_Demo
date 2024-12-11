@@ -1,0 +1,183 @@
+{
+    "id": 1381,
+    "parent_id": 0,
+    "status": "pending",
+    "currency": "INR",
+    "version": "9.3.3",
+    "prices_include_tax": false,
+    "date_created": "2024-10-14T05:13:31",
+    "date_modified": "2024-10-14T05:13:58",
+    "discount_total": "0.00",
+    "discount_tax": "0.00",
+    "shipping_total": "0.00",
+    "shipping_tax": "0.00",
+    "cart_tax": "0.18",
+    "total": "1.18",
+    "total_tax": "0.18",
+    "customer_id": 0,
+    "order_key": "wc_order_D8xzC3YeTP6c5",
+    "billing": {
+      "first_name": "hareesh",
+      "last_name": "",
+      "company": "mindvision",
+      "address_1": "anna nagar",
+      "address_2": "",
+      "city": "madurai",
+      "state": "",
+      "postcode": "",
+      "country": "IN",
+      "email": "kanieshjr@gmail.com",
+      "phone": "+917540096599"
+    },
+    "shipping": {
+      "first_name": "",
+      "last_name": "",
+      "company": "",
+      "address_1": "",
+      "address_2": "",
+      "city": "",
+      "state": "",
+      "postcode": "",
+      "country": "",
+      "phone": ""
+    },
+    "payment_method": "razorpay",
+    "payment_method_title": "Credit Card/Debit Card/NetBanking",
+    "transaction_id": "",
+    "customer_ip_address": "106.51.150.196",
+    "customer_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",
+    "created_via": "checkout",
+    "customer_note": "",
+    "date_completed": null,
+    "date_paid": null,
+    "cart_hash": "424cdece606ff7198f673f30d9b23127",
+    "number": "1381",
+    "meta_data": [
+      {
+        "id": 620,
+        "key": "_awcfe_order_meta_key",
+        "value": {}
+      },
+      {
+        "id": 614,
+        "key": "_billing_bspan_stylecolorefe507delivery_addressspanb",
+        "value": ""
+      },
+      {
+        "id": 616,
+        "key": "_billing_pin",
+        "value": "625020"
+      },
+      {
+        "id": 615,
+        "key": "_billing_state_",
+        "value": "tamilnadu"
+      },
+      {
+        "id": 628,
+        "key": "_wc_order_attribution_device_type",
+        "value": "Desktop"
+      },
+      {
+        "id": 626,
+        "key": "_wc_order_attribution_session_count",
+        "value": "1"
+      },
+      {
+        "id": 623,
+        "key": "_wc_order_attribution_session_entry",
+        "value": "https://successlifemantra.com/c-ds-lp/"
+      },
+      {
+        "id": 625,
+        "key": "_wc_order_attribution_session_pages",
+        "value": "10"
+      },
+      {
+        "id": 624,
+        "key": "_wc_order_attribution_session_start_time",
+        "value": "2024-10-14 04:13:04"
+      },
+      {
+        "id": 621,
+        "key": "_wc_order_attribution_source_type",
+        "value": "typein"
+      },
+      {
+        "id": 627,
+        "key": "_wc_order_attribution_user_agent",
+        "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36"
+      },
+      {
+        "id": 622,
+        "key": "_wc_order_attribution_utm_source",
+        "value": "(direct)"
+      },
+      {
+        "id": 629,
+        "key": "is_magic_checkout_order",
+        "value": "no"
+      },
+      {
+        "id": 617,
+        "key": "is_vat_exempt",
+        "value": "no"
+      },
+      {
+        "id": 630,
+        "key": "rzp_webhook_notified_at",
+        "value": "1728882838"
+      }
+    ],
+    "line_items": [
+      {
+        "id": 70,
+        "name": "Google Reviews + Instagram + Youtube Cards",
+        "product_id": 1034,
+        "variation_id": 0,
+        "quantity": 1,
+        "tax_class": "",
+        "subtotal": "1.00",
+        "subtotal_tax": "0.18",
+        "total": "1.00",
+        "total_tax": "0.18",
+        "taxes": [],
+        "meta_data": [],
+        "sku": "",
+        "price": 1,
+        "image": {},
+        "parent_name": null
+      }
+    ],
+    "tax_lines": [
+      {
+        "id": 71,
+        "rate_code": "IN-GST - 18%-1",
+        "rate_id": 2,
+        "label": "GST - 18%",
+        "compound": true,
+        "tax_total": "0.18",
+        "shipping_tax_total": "0.00",
+        "rate_percent": 18,
+        "meta_data": []
+      }
+    ],
+    "shipping_lines": [],
+    "fee_lines": [],
+    "coupon_lines": [],
+    "refunds": [],
+    "payment_url": "https://successlifemantra.com/checkout/order-pay/1381/?pay_for_order=true&key=wc_order_D8xzC3YeTP6c5",
+    "is_editable": true,
+    "needs_payment": true,
+    "needs_processing": true,
+    "date_created_gmt": "2024-10-14T05:13:31",
+    "date_modified_gmt": "2024-10-14T05:13:58",
+    "date_completed_gmt": null,
+    "date_paid_gmt": null,
+    "currency_symbol": "₹",
+    "_links": {
+      "self": [{}],
+      "collection": [{}]
+    }
+  }
+  

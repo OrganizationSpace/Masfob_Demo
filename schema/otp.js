@@ -1,22 +1,29 @@
 const mongoose = require("mongoose");
 
-const otp_schema = mongoose.Schema({
+
+const otp_schema = new mongoose.Schema({
   email: {
     type: String,
+    required: true
   },
   otp: {
     type: String,
+    required: true
   },
   status: {
     type: String,
     enum: ['PENDING', 'VERIFIED'],
-    default: 'PENDING',
+    default: 'PENDING'
   },
-//   expiresAt: {
-//     type: Date,
-//     default: Date.now() + 2 * 60 * 1000, // Set expiration time to 5 minutes
-//     index: { expires: '2m' }, // Index for automatic TTL deletion
-// },
- });
+  createdAt: {
+    type: Date,
+    expires: 60, //1min used to seconds 
+    default: Date.now
+  }
+});
 
-module.exports = mongoose.model("Otp", otp_schema);
+otp_schema.index({ createdAt: 1 }, { expireAfterSeconds: 0 });
+
+
+module.exports = mongoose.model("Otp_", otp_schema);
+//

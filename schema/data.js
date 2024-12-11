@@ -8,4 +8,4 @@ const data_schema = new mongoose.Schema({
   
 });
 
-module.exports = mongoose.model('Data', data_schema);
+module.exports = mongoose.model('Data_', data_schema);

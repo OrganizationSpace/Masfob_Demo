@@ -1,12 +1,13 @@
+require('dotenv').config()
 const { S3Client, HeadObjectCommand } = require('@aws-sdk/client-s3')
 
 // Initialize the S3 client with your configuration
 const s3 = new S3Client({
-	endpoint: 'https://sgp1.digitaloceanspaces.com',
-	region: 'sgp1',
+	endpoint: process.env.S3_ENDPOINT,
+	region: process.env.S3_REGION,
 	credentials: {
-		accessKeyId: 'PXYNBVQM66Y637OVRTBR',
-		secretAccessKey: 'C19b0MxmnEd7RXCa2LI15QEMi53QfUI/xFB7Fo3dP+g',
+		accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+		secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 	},
 })
 
@@ -15,7 +16,7 @@ async function getFileSize(objectKey) {
 	try {
 		// Create a HEAD object command to retrieve metadata
 		const headObjectCommand = new HeadObjectCommand({
-			Bucket: 'mindvision',
+			Bucket: process.env.BUCKET_NAME,
 			Key: objectKey,
 		})
 

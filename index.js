@@ -19,7 +19,7 @@ const { setChannel, sendToQueue, ack, nack } = require('./rabbitmq/channel')
 
 //dummy
 const app = express()
-const port = process.env.PORT || 1118
+const port = process.env.PORT || 3000
 
 app.use(morgan('dev'))
 // app.use(express.json())
@@ -41,12 +41,12 @@ connectRabbitMQ()
 	})
 
 
-app.listen(1118, () => {
+app.listen(3000, () => {
 	console.log('SERVER STARTED 💐 ')
 
 	mongoose
 		.connect(
-			'mongodb+srv://venkatesh:8903273610@mindvisiontechnologies.p9txv7b.mongodb.net/masfob?retryWrites=true&w=majority',
+			'mongodb+srv://sona:sona2872@development.vhaae.mongodb.net/demo',
 			{}
 		)
 		.then(() => {

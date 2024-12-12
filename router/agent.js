@@ -121,7 +121,7 @@ router.post('/login',attestation, async (req, res, next) => {
 	try {
 		const {  email, password, tag, code } = req.body
 
-		const login_agent = await agent.fetch({  email, password})
+		const login_agent = await agent.fetch({  email, password})//agent controller
 		if(login_agent==null){
 			return res.status(400).json({success:false, message: 'invalid credentials ',data:{} })
 		}
@@ -131,7 +131,8 @@ router.post('/login',attestation, async (req, res, next) => {
 		const agent_id = login_agent._id.toString()	
 		//console.log("login_agent",login_agent.workspace);
 		var workspace =login_agent.workspace
-		const check_subscription = await environment.checkSubscription({
+		const check_subscription = await environment.checkSubscription//environment controller
+		({
 				code,
 				workspace,
 			})
@@ -141,7 +142,7 @@ router.post('/login',attestation, async (req, res, next) => {
 
 			if (check_subscription.status == 200) {
 				const calendar_limit= check_subscription.data.data.limit
-				const token = generateAgentToken(login_agent, '1h')
+				const token = generateAgentToken(login_agent, '1h')//function sign_tocken
 				// console.log("agent token",token);
 
 				res.setHeader('token', token)
@@ -288,7 +289,7 @@ router.post('/update', authorization, async (req, res, next) => {
 router.post('/team/add',attestation, authorization, async (req, res, next) => {
 	
 	try {
-		const add_team = await agent.teamAdd({
+		const add_team = await agent.teamAdd({//multiple
 			workspace: req.workspace,
 			email: req.body.email,
 			team: req.body.team,
@@ -327,7 +328,7 @@ router.post('/team/delete',attestation, authorization, async (req, res, next) =>
 
 router.post('/add/team', authorization, async (req, res, next) => {
 	try {
-		const result = await agent.addToTeam({
+		const result = await agent.addToTeam({//single document
 			workspace: req.workspace,
 			email: req.body.email,
 			team: req.body.team,

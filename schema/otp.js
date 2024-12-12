@@ -22,7 +22,7 @@ const otp_schema = new mongoose.Schema({
   }
 });
 
-otp_schema.index({ createdAt: 1 }, { expireAfterSeconds: 0 });
+otp_schema.index({ createdAt: 1 }, { expireAfterSeconds: 0 });//expireAfterSeconds: This parameter sets the TTL index with an expiration duration. means that the document will expire immediately after the time specified in the createdAt field.
 
 
 module.exports = mongoose.model("Otp_", otp_schema);

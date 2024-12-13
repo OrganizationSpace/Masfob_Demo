@@ -286,7 +286,7 @@ router.post('/update', authorization, async (req, res, next) => {
 })
 
 //indesk use routes
-router.post('/team/add',attestation, authorization, async (req, res, next) => {
+router.post('/team/add', authorization, async (req, res, next) => {
 	
 	try {
 		const add_team = await agent.teamAdd({//multiple
@@ -307,7 +307,7 @@ router.post('/team/add',attestation, authorization, async (req, res, next) => {
 	}
 })
 //indesk use routes
-router.post('/team/delete',attestation, authorization, async (req, res, next) => {
+router.post('/team/delete', authorization, async (req, res, next) => {
 	try {
 		const remove_team = await agent.teamRemove({
 			workspace: req.workspace,

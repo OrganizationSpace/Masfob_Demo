@@ -6,7 +6,7 @@ const router = require('./router')
 const connectRabbitMQ = async () => {
 	try {
 		const connection = await amqp.connect(process.env.RABBITMQ_CONNECTION) // Replace with your RabbitMQ server URL
-		const channel = await connection.createChannel()
+		const channel = await connection.createChannel()//used for performing messaging operations like publishing, consuming, and acknowledging messages.
 		channel.consume('account_center', (data) => {
 			router(data)
 		})

@@ -342,6 +342,24 @@ router.post('/label/assign', authorization,decrypt, async (req, res, next) => {
 	}
 })
 
+router.post('/encrypt', async (req, res, next) => {
+	try {
+		const data = req.body; // Data to encrypt
+
+		// Encrypt the data
+		const encryptedData = await encrypt(data);
+
+		res.status(200).json({
+			success: true,
+			message: "Data encrypted successfully",
+			encryptedData: encryptedData,
+		});
+	} catch (error) {
+		console.error("Encryption route error:", error);
+		next(error);
+	}
+});
+
 //_id based the route can be assign the labels
 
 // router.post('/label/assign/v2', authorization, async (req, res,next) => {

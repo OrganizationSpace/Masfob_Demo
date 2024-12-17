@@ -71,27 +71,27 @@
 // module.exports = upload
 
 require('dotenv').config()
-const multer = require('multer')
-const multers3 = require('multer-s3')
+const multer = require('multer')//Middleware for handling multipart/form-data
+const multers3 = require('multer-s3')//a storage engine for Multer that allows files to be directly uploaded to an S3 bucket.
 const { S3Client } = require('@aws-sdk/client-s3')
 const path = require('path')
 
 const s3 = new S3Client({
 	endpoint: process.env.S3_ENDPOINT,
 	region: process.env.S3_REGION,
-	credentials: {
+	credentials: {//which are used for authentication when making requests to S3.
 		accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-		secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+		secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY, 
 	},
 })
 
 const upload = multer({
 	storage: multers3({
 		s3: s3,
-		bucket: process.env.BUCKET_NAME,
+		bucket: process.env.BUCKET_NAME,//logical container in Amazon S3 where files are stored
 		contentType: multers3.AUTO_CONTENT_TYPE,
-		acl: 'public-read',
-		metadata: async (req, file, cb) => {
+		acl: 'public-read',// Sets the access control list (ACL) to 'public-read', meaning the file will be publicly accessible
+		metadata: async (req, file, cb) => {// to store additional information about the uploaded file
 		//	console.log("metadata",file);
 			cb(null, {
 				fieldname: file.fieldname,

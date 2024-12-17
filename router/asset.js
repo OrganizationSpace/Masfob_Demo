@@ -22,8 +22,8 @@ router.post('/add', authorization,assetRateLimiter,uploadfile, async (req, res, 
 		console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++=");
 	try {
 		const { filename } = req.body
-		const { originalname } = req.file
-		const extension = req.extension.slice(1)
+		const { originalname } = req.file// Extracted from the uploaded file's metadata (req.file).
+		const extension = req.extension.slice(1)//example (.jpg) it extracts jpg because slice(1)
 	
 
 		 const file_size = await getFileSize(originalname)
@@ -67,7 +67,7 @@ router.post('/add', authorization,assetRateLimiter,uploadfile, async (req, res, 
         }
 });
 
-router.post('/add/indpage', uploadfile, async (req, res, next) => {
+router.post('/add/indpage',authorization, uploadfile, async (req, res, next) => {
 	try {
 		const { filename } = req.body
 		const { originalname } = req.file

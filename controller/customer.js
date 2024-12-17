@@ -11,6 +11,7 @@ class Customer {
 		country_code,
 		tags,
 		labels,
+		dob,
 	}) {
 		try {
 			const result = await new Customer_({
@@ -23,6 +24,7 @@ class Customer {
 				country_code,
 				tags: tags,
 				labels: labels,
+				dob: dob,
 			}).save()
 			return result
 		} catch (error) {

@@ -33,7 +33,7 @@ router.post(
 	  try {
 		////console.log("masfob_req body",req.body);
 		const workspace = req.workspace;
-		const { phone_number, email, name, display_name, country_code = '91', tags, labels } = req.body;
+		const { phone_number, email, name, display_name, country_code = '91', tags, labels,dob } = req.body;
   
 		// Check if the contact number already exists
 		if (phone_number) {
@@ -69,6 +69,7 @@ router.post(
 		  country_code,
 		  tags,
 		  labels,
+		  dob,
 		});
   
 		// Respond with success message

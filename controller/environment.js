@@ -220,7 +220,7 @@ class Environment {
 				}
 			)
 
-			return check
+			return result
 		} catch (error) {
 			//console.error(error)
 			throw error

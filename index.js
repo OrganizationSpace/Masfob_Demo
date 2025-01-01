@@ -40,6 +40,65 @@ connectRabbitMQ()
 		console.error('Error connecting to RabbitMQ', error)
 	})
 
+// To verify webhook
+app.get('/webhook', (req, res) => {
+    const VERIFY_TOKEN = "masfob1234567890";
+    const mode = req.query['hub.mode'];
+    const token = req.query['hub.verify_token'];
+    const challenge = req.query['hub.challenge'];
+
+    if (mode && token === VERIFY_TOKEN) {
+        if (mode === 'subscribe') {
+            console.log('Webhook verified');
+            res.status(200).send(challenge);
+        }
+    } else {
+        res.sendStatus(403);
+    }
+});
+
+// To handle webhook events
+// To handle webhook events
+app.post('/webhook', (req, res) => {
+    const body = req.body;
+
+    // Log the incoming webhook event
+    console.log('Webhook event received:', JSON.stringify(body, null, 2));
+
+    // Check if the event is from WhatsApp
+    if (body.object === 'whatsapp_business_account') {
+        body.entry.forEach((entry) => {
+            const changes = entry.changes;
+
+            // Handle message or status events
+            changes.forEach((change) => {
+                if (change.field === 'messages') {
+                    const messages = change.value.messages;
+
+                    // Process each message
+                    if (messages) {
+                        messages.forEach((message) => {
+                            console.log('Received message:', message);
+                        });
+                    }
+                }
+                if (change.field === 'statuses') {
+                    const statuses = change.value.statuses;
+
+                    // Process each status update
+                    if (statuses) {
+                        statuses.forEach((status) => {
+                            console.log('Status update received:', status);
+                        });
+                    }
+                }
+            });
+        });
+    }
+
+    // Respond to acknowledge receipt of the event
+    res.status(200).send('EVENT_RECEIVED');
+});
 
 app.listen(3000, () => {
 	console.log('SERVER STARTED 💐 ')
@@ -77,6 +136,7 @@ const customer = require('./router/customer')
 const mail = require('./router/mail')
 const otp = require('./router/otp')
 const environment = require('./router/environment')
+const workflow = require('./router/workflow')
 const authorization = require('./function/auth')
 
 //middleware
@@ -88,7 +148,7 @@ app.use('/customer', customer)
 app.use('/mail', mail)
 app.use('/otp', otp)
 app.use('/environment', environment)
-
+app.use('/workflow', workflow)
 app.get('/', async (req, res) => {
 	try {
 		const response = { message: 'masfob server dev' }

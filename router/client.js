@@ -50,7 +50,7 @@ router.use(urlencoded({ extended: true }))
 // });
 
 
-router.post('/login', attestation, async (req, res, next) => {
+router.post('/login', async (req, res, next) => {
 	
 	try {
 		const { workspace, email, password, tag } = req.body;
@@ -85,7 +85,7 @@ router.post('/login', attestation, async (req, res, next) => {
 //the route was not used  in /client/add
 //used to indcharge
 //the route used indesk
-router.post('/add',attestation,customerRateLimiter, authorization, async (req, res,next) => {
+router.post('/add',customerRateLimiter, authorization, async (req, res,next) => {
 	try {
 
 		const add_client = await client.add({workspace: req.workspace,
@@ -208,7 +208,7 @@ router.post('/add/unauthorised/label', async (req, res, next) => {
 });
 
 
-router.post('/profile/picture/upload', attestation, authorization, async (req, res, next) => {
+router.post('/profile/picture/upload', authorization, async (req, res, next) => {
 
 	try {
 
@@ -229,7 +229,7 @@ router.post('/profile/picture/upload', attestation, authorization, async (req, r
 	}
 })
 
-router.post('/profile/fetch', attestation, authorization, async (req, res, next) => {
+router.post('/profile/fetch', authorization, async (req, res, next) => {
 	try {
 
 		const fetch_profile = await client.fetchProfile({
@@ -248,7 +248,7 @@ router.post('/profile/fetch', attestation, authorization, async (req, res, next)
 	}
 })
 
-router.post('/list', attestation, authorization, async (req, res, next) => {
+router.post('/list', authorization, async (req, res, next) => {
 	try {
 		const workspace = req.workspace
 		const tag = req.body.tag
@@ -264,7 +264,7 @@ router.post('/list', attestation, authorization, async (req, res, next) => {
 		next(error)
 	}
 })
-router.post('/delete', attestation, authorization, async (req, res, next) => {
+router.post('/delete', authorization, async (req, res, next) => {
 	try {
 		const workspace = req.workspace
 		const email = req.body.email

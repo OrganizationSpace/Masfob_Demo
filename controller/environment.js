@@ -137,6 +137,99 @@ class Environment {
 		}
 	}
 
+
+	async meta({ data }) {
+		try {
+			
+			const result = await axios.post(
+				`https://graph.facebook.com/v21.0/454207377775000/messages `,
+
+				
+				data,
+				{
+					headers: { 
+						Authorization:`Bearer EAARqh52SDGgBO9w1nP2qFX7pFqWqjZArzbnRZCUtPfRX3V9QiPdAxcqv1zFOZAzJATQrwG2AELBOJ4FLc3hVHJcH98fM12iiD3vF3giIX8ao6dS2T9ndxcZCfoTTccIQQcka2j3c6ssrjpjyV2npZA3R5s40qA0eoHqxUZAZCptZAkJlHM9mZAG0wMGntpKnlPfxacZBGcfTfVN2lFVFyIFVZAJ2Rz9nLP234ms3ADO`,
+						'Content-Type': 'application/json',
+					},
+				}
+			)
+
+			return result
+		} catch (error) {
+			//console.error(error)
+			throw error
+		}
+	}
+	
+	async testmeta({ data }) {
+		try {
+			
+			const result = await axios.post(
+				`https://graph.facebook.com/v21.0/454207377775000/messages `,
+
+				
+				data,
+				{
+					headers: { 
+						Authorization:`Bearer EAARqh52SDGgBO9w1nP2qFX7pFqWqjZArzbnRZCUtPfRX3V9QiPdAxcqv1zFOZAzJATQrwG2AELBOJ4FLc3hVHJcH98fM12iiD3vF3giIX8ao6dS2T9ndxcZCfoTTccIQQcka2j3c6ssrjpjyV2npZA3R5s40qA0eoHqxUZAZCptZAkJlHM9mZAG0wMGntpKnlPfxacZBGcfTfVN2lFVFyIFVZAJ2Rz9nLP234ms3ADO`,
+						'Content-Type': 'application/json',
+					},
+				}
+			)
+
+			return result
+		} catch (error) {
+			//console.error(error)
+			throw error
+		}
+	}
+
+	async urlmeta({ data }) {
+		try {
+			
+			const result = await axios.post(
+				`https://graph.facebook.com/v21.0/454207377775000/messages `,
+
+				
+				data,
+				{
+					headers: { 
+						Authorization:`Bearer EAARqh52SDGgBO2afHp66mOG3jI04Mmf0uooPc3ZCF1vTAPTIXLswP3WmJsRBg6aKWd2MHS3ZAo0KuZBwEZAHfT1w5SDwrgJhBgMZBnfmEBcG0wG1i436XvgHH609cHe3qZChh6PGZCCB4bOwYaPlzBNk8DdRpEXYVNo0Nh7CRI1SxZCaDiZBpZA1qiUxya3izzO18pfle2fXPRGutuxfiafchXcZAGkAHvHnf6ZC9cUZD`,
+						'Content-Type': 'application/json',
+					},
+				}
+			)
+
+			return result
+		} catch (error) {
+			//console.error(error)
+			throw error
+		}
+	}
+
+	async buttonmeta({ data }) {
+		try {
+			
+			const result = await axios.post(
+				`https://graph.facebook.com/v21.0/454207377775000/messages `,
+
+				
+				data,
+				{
+					headers: { 
+						'Authorization':`Bearer EAARqh52SDGgBO2afHp66mOG3jI04Mmf0uooPc3ZCF1vTAPTIXLswP3WmJsRBg6aKWd2MHS3ZAo0KuZBwEZAHfT1w5SDwrgJhBgMZBnfmEBcG0wG1i436XvgHH609cHe3qZChh6PGZCCB4bOwYaPlzBNk8DdRpEXYVNo0Nh7CRI1SxZCaDiZBpZA1qiUxya3izzO18pfle2fXPRGutuxfiafchXcZAGkAHvHnf6ZC9cUZD`,
+						'Content-Type': 'application/json',
+					},
+				}
+			)
+
+			return result
+		} catch (error) {
+			//console.error(error)
+			throw error
+		}
+	}
+
 	async listPlans({ token, data }) {
 		try {
 			const inputData = {
@@ -163,6 +256,30 @@ class Environment {
 			throw error
 		}
 	}
+
+	async testingMeta({ data }) {
+        try {
+            
+            
+            const result = await axios.post(
+                'https://graph.facebook.com/v21.0/454207377775000/messages',
+                
+                data,
+                {
+                    headers: {
+                        'Authorization': `Bearer EAARqh52SDGgBO2afHp66mOG3jI04Mmf0uooPc3ZCF1vTAPTIXLswP3WmJsRBg6aKWd2MHS3ZAo0KuZBwEZAHfT1w5SDwrgJhBgMZBnfmEBcG0wG1i436XvgHH609cHe3qZChh6PGZCCB4bOwYaPlzBNk8DdRpEXYVNo0Nh7CRI1SxZCaDiZBpZA1qiUxya3izzO18pfle2fXPRGutuxfiafchXcZAGkAHvHnf6ZC9cUZD`,
+                        'Content-Type': 'application/json',
+                    },
+                }
+            )
+            console.log(result);
+            
+            return result
+        } catch (error) {
+            //console.error(error)
+            throw error
+        }
+    }
 
 	async generatePaymentLink({ token, data, workspace }) {
 		try {

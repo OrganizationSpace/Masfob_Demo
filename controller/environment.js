@@ -168,7 +168,7 @@ class Environment {
 			const check = await Workflow_.findOne({ id: "flow-221" });
 			console.log('check',check);
 
-			const result1 = {
+			const dataOne = {
 				"messaging_product": "whatsapp",
 				"recipient_type": "individual",
 				"to": phone_number,
@@ -205,13 +205,13 @@ class Environment {
 				  }
 				}
 			  };
-			  console.log('result1',result1);
+			  console.log('result1',dataOne);
 			  
 			const result = await axios.post(
 				`https://graph.facebook.com/v21.0/566917379828344/messages`,
 
 				
-				result1,
+				dataOne,
 				{
 					headers: { 
 						Authorization:`Bearer EACCqGGtJE2oBOxAc8EiU8DkXhUQBQQKS0otKLc4E0XED1xk3s1kgxkCO9oe2mXASQbxD6ji9GuhB3sk28jNssKrNpkilXpUDdhsh9J2vvZCbJiZBB1jXQ04NOhLC9LVRKRWlmHt1fXwExk87NZCCW2yyixYYdJllYNqRz7x5xa3QERs73CO8VXvVHSSZCUZB8FdPwZAJUe9xmgssqgbDHcbzPP6po4nzrzIjrl`,

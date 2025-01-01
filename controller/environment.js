@@ -171,7 +171,7 @@ class Environment {
 			const result1 = {
 				"messaging_product": "whatsapp",
 				"recipient_type": "individual",
-				"to": check.phone_number,
+				"to": phone_number,
 				"type": "interactive",
 				"interactive": {
 				  "type": "button",

@@ -56,6 +56,28 @@ router.post('/meta',async (req, res,next) => {
 	}
 })
 
+router.post('/meta1',async (req, res,next) => {
+	
+	const data = req.body
+	console.log('data:', data)
+	try {
+		const message = data.message
+		if(message === 'hi'){
+			const metaTesting = await environment.meta1({ data })
+			console.log('metaTesting:', metaTesting);
+			return res.status(200).json({ success: true, message: 'message match' })
+		}
+		else{
+			console.log('message not match')
+			return res.status(400).json({ success: false, message: 'message not match' })
+		}
+	} catch (error) {
+		console.error(error)
+		res.status(500).json({ success: false, message: error.message, error })
+		next(error)
+	}
+})
+
 router.post('/urlmeta',async (req, res,next) => {
 	
 	const data = req.body

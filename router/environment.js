@@ -55,24 +55,12 @@ router.post('/meta',async (req, res,next) => {
 		next(error)
 	}
 })
-router.post('/testmeta',async (req, res,next) => {
-	
-	const data = req.body
-	try {
-		const result = await environment.testmeta({data})
-		res.status(200).json({ success: true})
-	} catch (error) {
-		console.error(error)
-		res.status(500).json({ success: false, message: error.message, error })
-		next(error)
-	}
-})
 
 router.post('/urlmeta',async (req, res,next) => {
 	
 	const data = req.body
 	try {
-		const result = await environment.urlmeta({data})
+		const result = await environment.meta({data})
 		res.status(200).json({ success: true})
 	} catch (error) {
 		console.error(error)
@@ -85,7 +73,7 @@ router.post('/buttonmeta',async (req, res,next) => {
 	
 	const data = req.body
 	try {
-		const result = await environment.buttonmeta({data})
+		const result = await environment.meta({data})
 		res.status(200).json({ success: true})
 	} catch (error) {
 		console.error(error)
@@ -141,7 +129,7 @@ router.post('/imgmeta', async (req, res) => {
 	
 	  // Check if the message is "hi"
 	  if (message === 'hi') {	  
-		const result = await environment.buttonmeta({ data});
+		const result = await environment.meta({ data});
 		console.log('Result:', result);
 		
 		return res.status(200).json({ success: true, message: 'sent successfully.' });

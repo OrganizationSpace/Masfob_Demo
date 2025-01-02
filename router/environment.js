@@ -62,8 +62,9 @@ router.post('/meta1',async (req, res,next) => {
 	console.log('data:', data)
 	try {
 		const message = data.message
+		console.log('message:', message)
 		if(message === 'hi'){
-			const metaTesting = await environment.meta1({ data })
+			const metaTesting = await environment.meta1({ param:data })
 			console.log('metaTesting:', metaTesting);
 			return res.status(200).json({ success: true, message: 'message match' })
 		}
@@ -170,7 +171,7 @@ router.post('/imgmeta', async (req, res) => {
         const data = {
             "messaging_product": "whatsapp",
             "recipient_type": "individual",
-            "to": 918940105075,
+            "to": 917305153529,
             "type": "interactive",
             "interactive": {
               "type": "button",
@@ -249,8 +250,6 @@ router.get('/plan/list', authorization, async (req, res,next) => {
 	}
 })
 
-
-
 router.get('/product/list', authorization, async (req, res,next) => {
 		const token = req.headers.authorization
 		//const workspace = req.workspace
@@ -274,8 +273,6 @@ router.get('/product/list', authorization, async (req, res,next) => {
 		}
 	})
 
-
-
 	router.get('/advertisement/list', authorization, async (req, res,next) => {
 		const token = req.headers.authorization
 		//const workspace = req.workspace
@@ -298,7 +295,6 @@ router.get('/product/list', authorization, async (req, res,next) => {
 			next(error)
 		}
 	})
-
 
 	router.post('/product/fetch', authorization, async (req, res,next) => {
 		const token = req.headers.authorization;
@@ -330,7 +326,6 @@ next(error)
 }
 })
 	
-
 router.post('/paynow', authorization, async (req, res,next) => {
 	const token = req.headers.authorization
 	const data = req.body
@@ -531,7 +526,6 @@ router.get('/trans/list', authorization, async (req, res, next) => {
 	}
   });
 
-
 router.post('/coupon/unhold', authorization, async (req, res,next) => {
 	const token = req.headers.authorization
 	const data = req.body
@@ -687,7 +681,6 @@ router.post('/product/update', authorization, async (req, res,next) => {
 	}
 })
 
-
 router.post('/', authorization, async (req, res,next) => {
 	const token = req.headers.authorization
 	try {
@@ -704,8 +697,6 @@ router.post('/', authorization, async (req, res,next) => {
 		next(error)
 	}
 })
-
-
 
 //backend route use in inderact 
 router.post('/optinout', attestation, async (req, res,next) => {
@@ -728,9 +719,5 @@ router.post('/optinout', attestation, async (req, res,next) => {
 		next(error)
 	}
 })
-
-
-
-
 
 module.exports = router

@@ -138,7 +138,6 @@ class Environment {
 		}
 	}
 
-
 	async meta({ data }) {
 		try {
 			
@@ -161,64 +160,71 @@ class Environment {
 			throw error
 		}
 	}
-	async meta1({ data }) {
+
+	async meta1({ param }) {
 		try {
-			const phone_number = data.phn_number;
+			const phone_number = param.phn_number;
 			console.log(phone_number);
 			const check = await Workflow_.findOne({ id: "flow-221" });
 			console.log('check',check);
-
-			const dataOne = {
+			const link = check.answer.link;
+			const text= check.answer.text;
+			const labelOne = check.answer.button[0].label;
+			console.log('labelOne',labelOne);
+			const labelTwo = check.answer.button[1].label;
+			console.log('labelTwo',labelTwo);
+			const data = {
 				"messaging_product": "whatsapp",
-				"recipient_type": "individual",
-				"to": phone_number,
-				"type": "interactive",
-				"interactive": {
-				  "type": "button",
-				  "header": {
-					"type": "image",
-					"image": {
-					  "link": check.answer.link,
-					}
-				  },
-				  "body": {
-					"text": check.answer.text,
-				  },
-				  
-				  "action": {
-					"buttons": [
-					  {
-						"type": "reply",
-						"reply": {
-						  "id": "change-button",
-						  "title": check.answer.button.label
-						}
-					  },
-					  {
-						"type": "reply",
-						"reply": {
-						  "id": "cancel-button",
-						  "title": check.answer.button.label
-						}
-					  }
-					]
-				  }
-				}
-			  };
-			  console.log('result1',dataOne);
+	"recipient_type": "individual",
+	"to": phone_number, 
+	"type": "interactive",
+	"interactive": {
+	  "type": "button",
+	  "header": {
+		"type": "image",
+		"image": {
+		  "link": link,
+		}
+	  },
+	  "body": {
+		"text": text,
+	  },
+	  
+	  "action": {
+		"buttons": [
+		  {
+			"type": "reply",
+			"reply": {
+			  "id": "change-button",
+			  "title": labelOne,
+			}
+		  },
+		  {
+			"type": "reply",
+			"reply": {
+			  "id": "cancel-button",
+			  "title": labelTwo,
+			}
+		  }
+		]
+	  }
+	}
+  };	
+			  console.log('result1',data);
 			  
-			const result = await axios.post(
-				`https://graph.facebook.com/v21.0/566917379828344/messages`,
-
-				
-				dataOne,
-				{
-					headers: { 
-						Authorization:`Bearer EACCqGGtJE2oBOxAc8EiU8DkXhUQBQQKS0otKLc4E0XED1xk3s1kgxkCO9oe2mXASQbxD6ji9GuhB3sk28jNssKrNpkilXpUDdhsh9J2vvZCbJiZBB1jXQ04NOhLC9LVRKRWlmHt1fXwExk87NZCCW2yyixYYdJllYNqRz7x5xa3QERs73CO8VXvVHSSZCUZB8FdPwZAJUe9xmgssqgbDHcbzPP6po4nzrzIjrl`,
-							'Content-Type': 'application/json',
-					},
-				}
-			)
+			  const result = await axios.post(
+                'https://graph.facebook.com/v21.0/566917379828344/messages',
+                
+                data,
+                {
+                    headers: {
+                        'Authorization': `Bearer EACCqGGtJE2oBOxAc8EiU8DkXhUQBQQKS0otKLc4E0XED1xk3s1kgxkCO9oe2mXASQbxD6ji9GuhB3sk28jNssKrNpkilXpUDdhsh9J2vvZCbJiZBB1jXQ04NOhLC9LVRKRWlmHt1fXwExk87NZCCW2yyixYYdJllYNqRz7x5xa3QERs73CO8VXvVHSSZCUZB8FdPwZAJUe9xmgssqgbDHcbzPP6po4nzrzIjrl`,
+                        'Content-Type': 'application/json',
+                    },
+                }
+            )
+            console.log(result);
+            
 
 			return result
 		} catch (error) {
@@ -328,12 +334,12 @@ class Environment {
             
             
             const result = await axios.post(
-                'https://graph.facebook.com/v21.0/454207377775000/messages',
+                'https://graph.facebook.com/v21.0/566917379828344/messages',
                 
                 data,
                 {
                     headers: {
-                        'Authorization': `Bearer EAARqh52SDGgBO2afHp66mOG3jI04Mmf0uooPc3ZCF1vTAPTIXLswP3WmJsRBg6aKWd2MHS3ZAo0KuZBwEZAHfT1w5SDwrgJhBgMZBnfmEBcG0wG1i436XvgHH609cHe3qZChh6PGZCCB4bOwYaPlzBNk8DdRpEXYVNo0Nh7CRI1SxZCaDiZBpZA1qiUxya3izzO18pfle2fXPRGutuxfiafchXcZAGkAHvHnf6ZC9cUZD`,
+                        'Authorization': `Bearer EACCqGGtJE2oBOxAc8EiU8DkXhUQBQQKS0otKLc4E0XED1xk3s1kgxkCO9oe2mXASQbxD6ji9GuhB3sk28jNssKrNpkilXpUDdhsh9J2vvZCbJiZBB1jXQ04NOhLC9LVRKRWlmHt1fXwExk87NZCCW2yyixYYdJllYNqRz7x5xa3QERs73CO8VXvVHSSZCUZB8FdPwZAJUe9xmgssqgbDHcbzPP6po4nzrzIjrl`,
                         'Content-Type': 'application/json',
                     },
                 }
@@ -804,5 +810,6 @@ class Environment {
 			throw error
 		}
 	}
+
 }
 module.exports = Environment

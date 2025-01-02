@@ -218,7 +218,7 @@ class Environment {
                 data,
                 {
                     headers: {
-                        'Authorization': `Bearer EACCqGGtJE2oBOxAc8EiU8DkXhUQBQQKS0otKLc4E0XED1xk3s1kgxkCO9oe2mXASQbxD6ji9GuhB3sk28jNssKrNpkilXpUDdhsh9J2vvZCbJiZBB1jXQ04NOhLC9LVRKRWlmHt1fXwExk87NZCCW2yyixYYdJllYNqRz7x5xa3QERs73CO8VXvVHSSZCUZB8FdPwZAJUe9xmgssqgbDHcbzPP6po4nzrzIjrl`,
+                        'Authorization': `Bearer EACCqGGtJE2oBOzpiGECWYwX0ZAd1vZAIPBEPLg6P8HO1FuvziTkWovPC4sKYeYrrSRgMnAXgn4hDS8SSDwJoPunmdOf9s61XKhli8SpsUf3bBSZBL3RWDGfQPFaJrMSwJC4EOZAccSdHRwzeinDpBFZC0ZAEhjTlQeFKyfHrAa1IPvE240IOZAZBQe3x4eLgNKgfZAh6ZB493BOZAgsWNsq9aBcwOnZAxZAk28IZAgnc4ZD`,
                         'Content-Type': 'application/json',
                     },
                 }

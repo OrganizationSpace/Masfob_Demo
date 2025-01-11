@@ -112,7 +112,7 @@ router.post('/add', authorization,agentRateLimiter, async (req, res, next) => {
 //     }
 // });
 
-router.post('/login',attestation, async (req, res, next) => {
+router.post('/login', async (req, res, next) => {
 	// console.log(req.body)
 	// console.log('----------------------------------------------');
 	// console.log(req.headers)
@@ -168,6 +168,7 @@ router.post('/login',attestation, async (req, res, next) => {
 		next(error)
 	}
 })
+
 router.post('/super/login',async (req, res, next) => {
 	try {
 		const { workspace, email, password, tag } = req.body

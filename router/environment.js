@@ -42,185 +42,6 @@ router.get('/plan/list', authorization, async (req, res,next) => {
 		next(error)
 	}
 })
-
-router.post('/meta',async (req, res,next) => {
-	
-	const data = req.body
-	try {
-		const result = await environment.meta({data})
-		res.status(200).json({ success: true})
-	} catch (error) {
-		console.error(error)
-		res.status(500).json({ success: false, message: error.message, error })
-		next(error)
-	}
-})
-
-router.post('/meta1',async (req, res,next) => {
-	
-	const data = req.body
-	console.log('data:', data)
-	try {
-		const message = data.message
-		console.log('message:', message)
-		if(message === 'hi'){
-			const metaTesting = await environment.meta1({ param:data })
-			console.log('metaTesting:', metaTesting);
-			return res.status(200).json({ success: true, message: 'message match' })
-		}
-		else{
-			console.log('message not match')
-			return res.status(400).json({ success: false, message: 'message not match' })
-		}
-	} catch (error) {
-		console.error(error)
-		res.status(500).json({ success: false, message: error.message, error })
-		next(error)
-	}
-})
-
-router.post('/urlmeta',async (req, res,next) => {
-	
-	const data = req.body
-	try {
-		const result = await environment.meta({data})
-		res.status(200).json({ success: true})
-	} catch (error) {
-		console.error(error)
-		res.status(500).json({ success: false, message: error.message, error })
-		next(error)
-	}
-})
-
-router.post('/buttonmeta',async (req, res,next) => {
-	
-	const data = req.body
-	try {
-		const result = await environment.meta({data})
-		res.status(200).json({ success: true})
-	} catch (error) {
-		console.error(error)
-		res.status(500).json({ success: false, message: error.message, error })
-		next(error)
-	}
-})
-
-router.post('/imgmeta', async (req, res) => {
-	try {
-	const {message}= req.body;
-  console.log('Message:', message);
-
-  const data= {
-	"messaging_product": "whatsapp",
-	"recipient_type": "individual",
-	"to": 918940105075, // WhatsApp user ID
-	"type": "interactive",
-	"interactive": {
-	  "type": "button",
-	  "header": {
-		"type": "image",
-		"image": {
-		  "link": "https://picsum.photos/seed/picsum/200/300" // Replace with your image URL
-		}
-	  },
-	  "body": {
-		"text": "Hi bro"
-	  },
-	  "footer": {
-		"text": "thank you!™"
-	  },
-	  "action": {
-		"buttons": [
-		  {
-			"type": "reply",
-			"reply": {
-			  "id": "change-button",
-			  "title": "Change"
-			}
-		  },
-		  {
-			"type": "reply",
-			"reply": {
-			  "id": "cancel-button",
-			  "title": "Cancel"
-			}
-		  }
-		]
-	  }
-	}
-  };	
-	
-	  // Check if the message is "hi"
-	  if (message === 'hi') {	  
-		const result = await environment.meta({ data});
-		console.log('Result:', result);
-		
-		return res.status(200).json({ success: true, message: 'sent successfully.' });
-	  } else {
-		return res.status(400).json({ success: false, message: 'Please send "hi" to trigger the template.' });
-	  }
-	} catch (error) {
-	  console.error('Error sending template:', error);
-	  res.status(500).json({ success: false, message: 'Internal server error.', error: error.message });
-	}
-  })
-  
-  router.post('/meta4', async (req, res,next) => {
-    try {
-        const {message} = req.body;
-        const data = {
-            "messaging_product": "whatsapp",
-            "recipient_type": "individual",
-            "to": 917305153529,
-            "type": "interactive",
-            "interactive": {
-              "type": "button",
-              "header": {
-                "type": "image",
-              "image": {
-              "link": "https://i.imgur.com/rH89pdL.jpeg"
-              }},
-              "body": {
-                "text": "Hi helllo to allll"
-              },
-              "footer": {
-                "text": "Lucky good"
-              },
-              "action": {
-                "buttons": [
-                  {
-                    "type": "reply",
-                    "reply": {
-                      "id": "change-button",
-                      "title": "Change"
-                    }
-                  },
-                  {
-                    "type": "reply",
-                    "reply": {
-                      "id": "cancel-button",
-                      "title": "Cancel"
-                    }
-                  }
-                ]
-              }
-            }};
-
-            if(message === 'hi' || message === 'hello'){
-                const metaTesting = await environment.testingMeta({ data })
-                console.log('metaTesting:', metaTesting);
-                return res.status(200).json({ success: true, message: 'message match' })
-            }
-            else{
-                console.log('message not match')
-                return res.status(400).json({ success: false, message: 'message not match' })
-            }
-        
-    } catch (error) {
-        console.error(error)
-        next(error)
-    }
-})
   
 router.get('/plan/list', authorization, async (req, res,next) => {
 	const token = req.headers.authorization
@@ -273,7 +94,7 @@ router.get('/product/list', authorization, async (req, res,next) => {
 		}
 	})
 
-	router.get('/advertisement/list', authorization, async (req, res,next) => {
+router.get('/advertisement/list', authorization, async (req, res,next) => {
 		const token = req.headers.authorization
 		//const workspace = req.workspace
 		try {
@@ -296,7 +117,7 @@ router.get('/product/list', authorization, async (req, res,next) => {
 		}
 	})
 
-	router.post('/product/fetch', authorization, async (req, res,next) => {
+router.post('/product/fetch', authorization, async (req, res,next) => {
 		const token = req.headers.authorization;
 	
 		try {

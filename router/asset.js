@@ -8,13 +8,14 @@ const authorization = require('../function/auth')
 const { urlencoded } = require('body-parser')
 const assetRateLimiter = require('../rate_limiter/asset')
 const upload = require('../function/get_filesize')
+const { getFileType } = require('../function/workflowfn');
 
 const asset = new Asset()
 
 router.use(express.json())
 router.use(urlencoded({ extended: true }))
 
-router.post('/add', authorization,assetRateLimiter,uploadfile, async (req, res, next) => {
+router.post('/add1', authorization,assetRateLimiter,uploadfile, async (req, res, next) => {
 	console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++=");
 		console.log("header",req.headers);
 		console.log("file",req.file);
@@ -45,7 +46,7 @@ router.post('/add', authorization,assetRateLimiter,uploadfile, async (req, res, 
 		// console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++=");
 
 //
-		const add_asset = await asset.add({
+		const add_asset = await asset.add1({
 			workspace: req.workspace,
 			name: filename ?? 'undefined',
 			url: process.env.SPACE_DOMAIN + originalname,
@@ -101,7 +102,7 @@ router.post('/add/indpage',authorization, uploadfile, async (req, res, next) => 
 
 router.post(
 	'/reference/add',
-	attestation,
+	//attestation,
 	authorization,
 	async (req, res, next) => {
     // console.log("#########################################################################################################################################");
@@ -177,32 +178,6 @@ router.post('/fetch', authorization, async (req, res, next) => {
     }
 });
 
-
-//router.post("/update", uploadfile,async (req, res) => {
-//   try {
-//     const id = req.body.id;
-//   const { filename } = req.body
-// 	const { originalname } = req.file
-// 	const extension = req.extension.slice(1)
-
-// 	const file_size = await getFileSize(originalname)
-//     const newData = {
-//       workspace: req.body.workspace,
-//       name:  filename ?? 'undefined',
-//       url: process.env.SPACE_DOMAIN + originalname,
-//       size: file_size,
-//       format: extension,
-//       tags: req.body.tags,
-//     };
-
-//     const { updatedAsset } = await masfob.updateAsset(id, newData);
-//     res.status(200).json({ success: true, result:updatedAsset, message: "Asset updated successfully" });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ error: "Internal Server Error" });
-//   }
-// });
-
 router.post('/delete', authorization, async (req, res, next) => {
 	try {
 		const workspace = req.workspace
@@ -225,5 +200,40 @@ router.post('/delete', authorization, async (req, res, next) => {
 		next(error)
 	}
 })
+
+//add asset(final)
+router.post('/add',uploadfile, async (req, res, next) => {
+    
+    try {
+        const {filename} = req.body;
+        const { originalname } = req.file// Extracted from the uploaded file's metadata (req.file).
+        const extension = req.extension.slice(1)//example (.jpg) it extracts jpg because slice(1)
+        console.log("filename",filename)
+        const file_size = await getFileSize(originalname)//to get size of the file
+        const file_Type = await getFileType(originalname)//to get type of the file
+
+        //Prepare the data to add asset in database
+        const add_asset = await asset.add({
+            name:  filename ??'undefined',
+            url: process.env.SPACE_DOMAIN + originalname,
+            size: file_size,
+            format: extension,
+            type: file_Type,
+            tags:'MASFOB'
+        })
+
+        console.log('name',process.env.SPACE_DOMAIN)
+
+        res.status(200).json({
+            success: true,
+            message: 'Asset added successfully ',
+            data: add_asset,
+        })
+    } catch (error) {
+            console.error(error);
+            next(error);
+        }
+});
+
 
 module.exports = router

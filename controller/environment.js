@@ -2,7 +2,7 @@ const axios = require('axios')
 const { redis } = require('../db/redis')
 const { sendToQueue } = require('../rabbitmq/channel')
 const Customer_ = require('../schema/customer')
-const Workflow_ = require('../schema/workflow')
+
 const { sign, attestation } = require('../function/signature')
 class Environment {
 	async initPreference({ workspace }) {
@@ -121,7 +121,8 @@ class Environment {
 			const signature = sign(payload)
 			//	const signature = sign()
 			const result = await axios.post(
-				'https://indcharge.api.mindvisiontechnologies.com/subscription/check',
+				'http://localhost:4000/subscription/check',
+				//'https://indcharge.api.mindvisiontechnologies.com/subscription/check',
 				//'http://192.168.29.233:1117/subscription/check',
 				data,
 				{
@@ -137,221 +138,6 @@ class Environment {
 			throw error
 		}
 	}
-
-	async meta({ data }) {
-		try {
-			
-			const result = await axios.post(
-				`https://graph.facebook.com/v21.0/566917379828344/messages`,
-
-				
-				data,
-				{
-					headers: { 
-						Authorization:`Bearer EACCqGGtJE2oBO80um0mGsRZC47uGedK6s4Rl2WKSOrtPCQ9ZA0fZAv81u1RKig743SDTmZAgDYKyQktQlWzggMssf6WamIzEXCTUp2WkFPNXSIlGVsuAZC9AdqbWbr79UH5gdouLWt93BZCYudQ07vkwAfYqxFXCW4ORMo4DldkjufJjH58WZATQiUbBpUUpZAyRWAREZA4QxTvywBMI1oivC7t1MLNBjvwz1VScZD`,
-							'Content-Type': 'application/json',
-					},
-				}
-			)
-
-			return result
-		} catch (error) {
-			//console.error(error)
-			throw error
-		}
-	}
-
-	async meta1({ param }) {
-		try {
-			const phone_number = param.phn_number;
-			console.log(phone_number);
-			const check = await Workflow_.findOne({ id: "flow-221" });
-			console.log('check',check);
-			const link = check.answer.link;
-			const text= check.answer.text;
-			const labelOne = check.answer.button[0].label;
-			console.log('labelOne',labelOne);
-			const labelTwo = check.answer.button[1].label;
-			console.log('labelTwo',labelTwo);
-			const data = {
-				"messaging_product": "whatsapp",
-	"recipient_type": "individual",
-	"to": phone_number, 
-	"type": "interactive",
-	"interactive": {
-	  "type": "button",
-	  "header": {
-		"type": "image",
-		"image": {
-		  "link": link,
-		}
-	  },
-	  "body": {
-		"text": text,
-	  },
-	  
-	  "action": {
-		"buttons": [
-		  {
-			"type": "reply",
-			"reply": {
-			  "id": "change-button",
-			  "title": labelOne,
-			}
-		  },
-		  {
-			"type": "reply",
-			"reply": {
-			  "id": "cancel-button",
-			  "title": labelTwo,
-			}
-		  }
-		]
-	  }
-	}
-  };	
-			  console.log('result1',data);
-			  
-			  const result = await axios.post(
-                'https://graph.facebook.com/v21.0/566917379828344/messages',
-                
-                data,
-                {
-                    headers: {
-                        'Authorization': `Bearer EACCqGGtJE2oBOzpiGECWYwX0ZAd1vZAIPBEPLg6P8HO1FuvziTkWovPC4sKYeYrrSRgMnAXgn4hDS8SSDwJoPunmdOf9s61XKhli8SpsUf3bBSZBL3RWDGfQPFaJrMSwJC4EOZAccSdHRwzeinDpBFZC0ZAEhjTlQeFKyfHrAa1IPvE240IOZAZBQe3x4eLgNKgfZAh6ZB493BOZAgsWNsq9aBcwOnZAxZAk28IZAgnc4ZD`,
-                        'Content-Type': 'application/json',
-                    },
-                }
-            )
-            console.log(result);
-            
-
-			return result
-		} catch (error) {
-			//console.error(error)
-			throw error
-		}
-	}
-	
-	async testmeta({ data }) {
-		try {
-			
-			const result = await axios.post(
-				`https://graph.facebook.com/v21.0/454207377775000/messages `,
-
-				
-				data,
-				{
-					headers: { 
-						Authorization:`Bearer EAARqh52SDGgBO9w1nP2qFX7pFqWqjZArzbnRZCUtPfRX3V9QiPdAxcqv1zFOZAzJATQrwG2AELBOJ4FLc3hVHJcH98fM12iiD3vF3giIX8ao6dS2T9ndxcZCfoTTccIQQcka2j3c6ssrjpjyV2npZA3R5s40qA0eoHqxUZAZCptZAkJlHM9mZAG0wMGntpKnlPfxacZBGcfTfVN2lFVFyIFVZAJ2Rz9nLP234ms3ADO`,
-						'Content-Type': 'application/json',
-					},
-				}
-			)
-
-			return result
-		} catch (error) {
-			//console.error(error)
-			throw error
-		}
-	}
-
-	async urlmeta({ data }) {
-		try {
-			
-			const result = await axios.post(
-				`https://graph.facebook.com/v21.0/454207377775000/messages `,
-
-				
-				data,
-				{
-					headers: { 
-						Authorization:`Bearer EAARqh52SDGgBO2afHp66mOG3jI04Mmf0uooPc3ZCF1vTAPTIXLswP3WmJsRBg6aKWd2MHS3ZAo0KuZBwEZAHfT1w5SDwrgJhBgMZBnfmEBcG0wG1i436XvgHH609cHe3qZChh6PGZCCB4bOwYaPlzBNk8DdRpEXYVNo0Nh7CRI1SxZCaDiZBpZA1qiUxya3izzO18pfle2fXPRGutuxfiafchXcZAGkAHvHnf6ZC9cUZD`,
-						'Content-Type': 'application/json',
-					},
-				}
-			)
-
-			return result
-		} catch (error) {
-			//console.error(error)
-			throw error
-		}
-	}
-
-	async buttonmeta({ data }) {
-		try {
-			
-			const result = await axios.post(
-				`https://graph.facebook.com/v21.0/454207377775000/messages `,
-
-				
-				data,
-				{
-					headers: { 
-						'Authorization':`Bearer EAARqh52SDGgBO2afHp66mOG3jI04Mmf0uooPc3ZCF1vTAPTIXLswP3WmJsRBg6aKWd2MHS3ZAo0KuZBwEZAHfT1w5SDwrgJhBgMZBnfmEBcG0wG1i436XvgHH609cHe3qZChh6PGZCCB4bOwYaPlzBNk8DdRpEXYVNo0Nh7CRI1SxZCaDiZBpZA1qiUxya3izzO18pfle2fXPRGutuxfiafchXcZAGkAHvHnf6ZC9cUZD`,
-						'Content-Type': 'application/json',
-					},
-				}
-			)
-
-			return result
-		} catch (error) {
-			//console.error(error)
-			throw error
-		}
-	}
-
-	async listPlans({ token, data }) {
-		try {
-			const inputData = {
-				data: data,
-			}
-
-			const payload = JSON.stringify(inputData)
-			const signature = sign(payload)
-			const result = await axios.post(
-				'https://indcharge.api.mindvisiontechnologies.com/plan/list',
-				{
-					data: data,
-				},
-				{
-					headers: {
-						Authorization: token,
-						'x-webhook-signature': signature,
-					},
-				}
-			)
-			return result
-		} catch (error) {
-			console.error(error)
-			throw error
-		}
-	}
-
-	async testingMeta({ data }) {
-        try {
-            
-            
-            const result = await axios.post(
-                'https://graph.facebook.com/v21.0/566917379828344/messages',
-                
-                data,
-                {
-                    headers: {
-                        'Authorization': `Bearer EACCqGGtJE2oBOxAc8EiU8DkXhUQBQQKS0otKLc4E0XED1xk3s1kgxkCO9oe2mXASQbxD6ji9GuhB3sk28jNssKrNpkilXpUDdhsh9J2vvZCbJiZBB1jXQ04NOhLC9LVRKRWlmHt1fXwExk87NZCCW2yyixYYdJllYNqRz7x5xa3QERs73CO8VXvVHSSZCUZB8FdPwZAJUe9xmgssqgbDHcbzPP6po4nzrzIjrl`,
-                        'Content-Type': 'application/json',
-                    },
-                }
-            )
-            console.log(result);
-            
-            return result
-        } catch (error) {
-            //console.error(error)
-            throw error
-        }
-    }
 
 	async generatePaymentLink({ token, data, workspace }) {
 		try {
@@ -460,7 +246,6 @@ class Environment {
 		}
 	}
 
-	
 	async listProduct({ token }) {
 		try {
 			// const inputData = {
@@ -485,8 +270,6 @@ class Environment {
 			throw error
 		}
 	}
-
-
 
 	async listAdvertisement({ token }) {
 		try {
@@ -539,9 +322,33 @@ class Environment {
 		}
 	}
 	
-
-
-
+	async listPlans({ token, data }) {
+	  try {
+		const inputData = {
+		  data: data,
+		}
+	
+		const payload = JSON.stringify(inputData)
+		const signature = sign(payload)
+		const result = await axios.post(
+		  'https://indcharge.api.mindvisiontechnologies.com/plan/list',
+		  {
+			data: data,
+		  },
+		  {
+			headers: {
+			  Authorization: token,
+			  'x-webhook-signature': signature,
+			},
+		  }
+		)
+		return result
+	  } catch (error) {
+		console.error(error)
+		throw error
+	  }
+	}
+	
 	async listTransactions({ token, workspace,page,query }) {
 		try {
 			const inputData = {
@@ -760,7 +567,6 @@ class Environment {
 			throw error
 		}
 	}
-
 
 	async updateProduct({ token, product_code,description,name,url }) {
 		try {

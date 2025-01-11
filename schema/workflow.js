@@ -17,6 +17,11 @@ const buttonSchema = new mongoose.Schema({
 });
 
 const answerSchema = new mongoose.Schema({
+  linkType: {  // Add the linkType field to store the type of link (image, video, audio, document)
+    type: String,
+    enum: ['image', 'video', 'audio', 'document', 'unknown'],  // Enum to restrict values to these types
+    default: 'unknown', // Default type if not specified
+  },
   link: {
     type: String,
   },

@@ -1,8 +1,5 @@
-const organizationModel = require('../schema/organization');
 const Workflow_ = require('../schema/workflow')
-const Asset_ = require('../schema/asset')
 const Keyword_ = require('../schema/keyword')
-const { getFileType } = require('../function/workflowfn');
 const axios = require('axios');
 
 class metaController {
@@ -155,18 +152,6 @@ async delete({id}) {
     }
   }
   
-  // //find workflow
-  // async fetchWorkflowByName({ name }) {
-  //   try {
-  //       const fetchedWorkflow = await Workflow_.findOne({ name});
-  //       console.log('workflow:', fetchedWorkflow);
-  //       return fetchedWorkflow;
-  //   } catch (error) {
-  //       console.error('Error in fetchWorkflowByName:', error);
-  //       throw error;
-  //   }
-  // }
-  // Find workflow by name and type
   async fetchWorkflowByNameAndType({ name }) {
     try {
         const fetchedWorkflow = await Workflow_.findOne({ name:name }); // Match both name and type

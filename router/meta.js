@@ -1,11 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const Workflow = require('../controller/workflow'); 
-const workflow = new Workflow();
-const { getFileType } = require('../function/workflowfn');
+const Meta = require('../controller/meta'); 
+const workflow = new Meta();
 
 //send normal message  
-router.post('/meta',async (req, res,next) => {
+router.post('/meta',async (req, res) => {
 	
 	const data = req.body
 	try {
@@ -18,27 +17,8 @@ router.post('/meta',async (req, res,next) => {
 	}
 })
 
-//keyword add
-router.post('/keyword',async (req, res,next) => {
-	
-	const data = req.body;
-	console.log('data:', data)
-	try {
-		const keyword = data.keyword
-		console.log('message:', keyword)
-		
-			const keywordTesting = await workflow.keywordAdd({ data })
-			console.log('key:', keywordTesting);
-			return res.status(200).json({ success: true, message: 'keyword saved' })
-	} catch (error) {
-		console.error(error)
-		res.status(500).json({ success: false, message: error.message, error })
-		next(error)
-	}
-})
-
 //send image
-router.post('/urlmeta',async (req, res,next) => {
+router.post('/urlmeta',async (req, res) => {
 	
 	const data = req.body
 	try {
@@ -52,7 +32,7 @@ router.post('/urlmeta',async (req, res,next) => {
 })
 
 //send video
-router.post('/video',async (req, res,next) => {
+router.post('/video',async (req, res) => {
 	
 	const data = req.body
 	console.log('data:', data)
@@ -68,7 +48,7 @@ router.post('/video',async (req, res,next) => {
 })
 
 //send document
-router.post('/document',async (req, res,next) => {
+router.post('/document',async (req, res) => {
 	
 	const data = req.body
 	console.log('data:', data)
@@ -84,7 +64,7 @@ router.post('/document',async (req, res,next) => {
 })
 
 //send location
-router.post('/location',async (req, res,next) => {
+router.post('/location',async (req, res) => {
 	
 	const data = req.body
 	console.log('data:', data)
@@ -100,7 +80,7 @@ router.post('/location',async (req, res,next) => {
 })
 
 //send audio
-router.post('/audio',async (req, res,next) => {
+router.post('/audio',async (req, res) => {
 	
 	const data = req.body
 	console.log('data:', data)
@@ -116,7 +96,7 @@ router.post('/audio',async (req, res,next) => {
 })
 
 //send image with button
-router.post('/buttonmeta',async (req, res,next) => {
+router.post('/buttonmeta',async (req, res) => {
 	
 	const data = req.body
 	try {
@@ -191,7 +171,7 @@ router.post('/imgmeta', async (req, res) => {
   })
   
 //send image button with workflow
-router.post('/send',async (req, res,next) => {
+router.post('/send',async (req, res) => {
 	
 	const data = req.body
 	console.log('data:', data)
@@ -215,7 +195,7 @@ router.post('/send',async (req, res,next) => {
 })
 
 //send message with workflow by keyword
-router.post('/keywordsend', async (req, res, next) => {
+router.post('/keywordsend', async (req, res) => {
     const { keyword } = req.body; // Destructure keyword from the request body
     console.log('Received keyword:', keyword);
 
@@ -263,7 +243,7 @@ router.post('/keywordsend', async (req, res, next) => {
     }
 });
 
-router.post('/sendformat', async (req, res, next) => {
+router.post('/sendformat', async (req, res) => {
     const { keyword } = req.body; // Destructure keyword and type from the request body
     console.log('Received keyword:', keyword);
 

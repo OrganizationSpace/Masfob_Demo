@@ -1,15 +1,15 @@
 const express = require('express')
-const bodyParser = require('body-parser')
+//const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
-const axios = require('axios')
+//const axios = require('axios')
 const morgan = require('morgan')
 const cors = require('./function/cors')
-const { redis } = require('./db/redis')
+//const { redis } = require('./db/redis')
 //const { channel, connection } = require('./db/rabbitmq')
-const {conn} = require ('./db/mongodb')
-const uploadfile = require('./function/s3/upload_file')
-const getFileSize = require('./function/s3/get_file_size')
+//const {conn} = require ('./db/mongodb')
+//const uploadfile = require('./function/s3/upload_file')
+//const getFileSize = require('./function/s3/get_file_size')
 //const { conn } = require('./db/mongodb')
 
 // const Data= require('./schema/data')
@@ -57,7 +57,6 @@ app.get('/webhook', (req, res) => {
     }
 });
 
-// To handle webhook events
 // To handle webhook events
 app.post('/webhook', (req, res) => {
     const body = req.body;
@@ -116,6 +115,7 @@ app.listen(3000, () => {
 		//	console.log('Error connecting to MongoDB:', error)
 		})
 })
+
 //////testing for landing
 const Organization = require('./controller/organization')
 const organizationP = new Organization()
@@ -125,9 +125,8 @@ const Customer = require('./controller/customer')
 const customerP = new Customer()
 
 const customerS = require('./schema/customer')
-////////////
-//router
 
+//router
 const organization = require('./router/organization')
 const agent = require('./router/agent')
 const client = require('./router/client')
@@ -138,7 +137,8 @@ const otp = require('./router/otp')
 const environment = require('./router/environment')
 const workflow = require('./router/workflow')
 const keyword = require('./router/keyword')
-const authorization = require('./function/auth')
+const meta = require('./router/meta')
+//const authorization = require('./function/auth')
 
 //middleware
 app.use('/organization', organization)
@@ -151,6 +151,8 @@ app.use('/otp', otp)
 app.use('/environment', environment)
 app.use('/workflow', workflow)
 app.use('/keyword',keyword)
+app.use('/meta', meta)
+
 app.get('/', async (req, res) => {
 	try {
 		const response = { message: 'masfob server dev' }

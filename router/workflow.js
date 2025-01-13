@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Workflow = require('../controller/workflow'); 
 const workflow = new Workflow();
-const { getFileType } = require('../function/workflowfn');
 
 //add workflow
 router.post('/add', async (req, res) => {
@@ -160,7 +159,7 @@ router.post('/delete', async (req, res) => {
         if (!delete_workflow) {
             return res.status(400).json({ success: false, message: 'Invalid request data' });
           }
-        res.status(200).json({ success: true, delete_workflow });
+        res.status(200).json({ success: true, message: 'wokflow deleted', delete_workflow });
     } catch (error) {
         res.status(500).json({ success: false, message: 'Error fetching workflows', error: error.message });
     }

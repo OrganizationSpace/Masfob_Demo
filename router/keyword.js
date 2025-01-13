@@ -37,6 +37,7 @@ router.post('/list',async (req,res,next) =>{
 
 })
 
+//method 1(dharsh)
 // Route to fetch workflows based on a keyword
 router.post('/fetch', async (req, res) => {
     const { key } = req.body;
@@ -76,6 +77,33 @@ router.post('/fetch', async (req, res) => {
     }
 });
 
+//method 2
+//fetch workflow by keyword
+router.post('/fetch', async (req, res, next) => {
+    const { key } = req.body;
+
+    try {
+        const { keyword, workflows } = await keyword_.fetchKeyword({ key });
+        
+        return res.status(200).json({
+            success: true,
+            message: 'Workflow listed by keyword',
+            keyword, // Include the keyword in the response
+            workflows
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: error.message,
+            error
+        });
+        next(error);
+    }
+});
+
+
+//method 1(dharsh)
 // Route to delete a keyword by keyword value
 router.post('/delete', async (req, res) => {
     const { keyword } = req.body;
@@ -104,5 +132,29 @@ router.post('/delete', async (req, res) => {
         });
     }
 });
+
+//method 2
+//delete
+router.post('/delete',async(req,res, next)=>{
+    const {id} = req.body;
+    try{
+        const delete_keyword = await keyword_.deleteKeyword({ id });
+        
+        return res.status(200).json({
+            success: true,
+            message: 'Keyword deleted',
+           delete_keyword
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: error.message,
+            error
+        });
+        next(error);
+    }
+})
+
 
 module.exports = router;

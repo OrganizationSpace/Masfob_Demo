@@ -1,12 +1,8 @@
-const organizationModel = require('../schema/organization');
 const Workflow_ = require('../schema/workflow')
 const Asset_ = require('../schema/asset')
-const Keyword_ = require('../schema/keyword')
 const { getFileType } = require('../function/workflowfn');
-const axios = require('axios');
 
 class workflowController {
-
 
 //add workflow
 async add({ flow }) {
@@ -60,41 +56,6 @@ async fetchAsset({ name }) {
   }
 }
 
-//add workflow by workspace
-async addWithWorkspace({flow,workspace}) { // Accepts 'data' directly
-        try {
-            const organization = await organizationModel.findOne({workspace:workspace});
-            console.log(organization); 
-            if(organization==null){
-                return {error:'workspace not found'}
-            }
-            
-      const formattedFlows = flow.map((workflow) => ({
-        workspace: organization.workspace,
-        id: workflow.id,
-        name: workflow.name,
-        question: workflow.question,
-        answer: {
-          link: workflow.answer.link,
-          text: workflow.answer.text,
-          button: workflow.answer.button.map((button) => ({
-            id: button.id,
-            label: button.label,
-            nextFlowId: button.nextFlowId,
-          })),
-        },
-      }));
-      const result = await Workflow_.insertMany(formattedFlows); // Correct insertMany usage
-      return result;
-
-      // Respond with the formatted structure
-   
-    } catch (error) {
-      console.error('Error fetching workflows:', error);
-      res.status(500).json({ message: 'Error fetching workflows', error });
-    }
-  }
-
 //list  workflow
 async fetch({key}) { 
     try {
@@ -121,6 +82,19 @@ async list({}) {
 console.error('Error fetching workflows:', error);
 res.status(500).json({ message: 'Error fetching workflows', error });
 }
+}
+
+//delete keyword
+async delete({id}) {
+    try {
+        
+        const result = await Workflow_.deleteOne({ _id: id});
+        console.log("deleted keyword:", result);
+        return  result 
+    } catch (error) {
+        console.error('Error in deleting Keyword:', error); 
+        throw error; 
+    }
 }
 
 }

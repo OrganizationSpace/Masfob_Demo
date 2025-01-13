@@ -8,9 +8,9 @@ const asset_schema = mongoose.Schema({
     //     maxlength: [50, "Workspace name should not exceed 50 characters"],
     //     match: [/^[a-zA-Z0-9\s]+$/,"only use alphaneumeric characters"]
     //   },
-    node_id: {
-      type: String,
-  },  
+  //   node_id: {
+  //     type: String,
+  // },  
     name: {
       type: String,
       trim: true,

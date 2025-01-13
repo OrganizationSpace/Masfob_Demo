@@ -66,6 +66,45 @@ async delete({ keyword}) {
     throw error; 
   }
 }
+
+//fetch workflow by keyword(sona)
+async fetchKeyword({key}) {
+    try {
+        const fetchedKeyord = await Keyword_.find({keyword: key});
+        console.log("fetchedkeyword:", fetchedKeyord);
+
+        // Access the 'name' property from the first element of the array
+        const keyword = fetchedKeyord[0]?.name; 
+        console.log("keyword:", keyword);
+
+        if (!keyword) {
+            throw new Error('Keyword not found');
+        }
+
+        const result = await Workflow_.find({name: keyword});
+        console.log("listed keyword:", result);
+
+        // Return both the keyword and the workflows
+        return { keyword, workflows: result };
+    } catch (error) {
+        console.error('Error in fetchKeyword:', error); 
+        throw error; 
+    }
+}
+
+//delete keyword(sona)
+async deleteKeyword({id}) {
+    try {
+        
+        const result = await Keyword_.deleteOne({ _id: id});
+        console.log("deleted keyword:", result);
+        return  result 
+    } catch (error) {
+        console.error('Error in deleting Keyword:', error); 
+        throw error; 
+    }
+}
+
 }
 
 module.exports = keywordController;

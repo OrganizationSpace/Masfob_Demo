@@ -49,6 +49,7 @@ async addWorkflows({ newWorkflow }) {
   }
 }
 
+//final
 async fetchAsset({ name }) {
   try {
     const result = await Asset_.findOne({ name: name }, { url: 1, extension: 1 ,type: 1});

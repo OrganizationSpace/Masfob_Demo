@@ -18,23 +18,6 @@ router.post('/add', async (req, res) => {
     }
 }); 
 
-//add workflow with workspace
-router.post('/add1', async (req, res) => {
-    const flow = req.body.flow?.flow; // Extracting data from the request body
-    const workspace =req.body.workspace;
-    console.log(flow);
-    console.log(workspace);
-    try {
-        const workflows = await workflow.addWithWorkspace({flow,workspace}); // Call the updated method
-        if (!workflows|| !workflows.length===0) {
-            return res.status(400).json({ success: false, message: 'Invalid request data' });
-          }
-        res.status(200).json({ success: true, workflows });
-    } catch (error) {
-        res.status(500).json({ success: false, message: 'Error adding workflows', error: error.message });
-    }
-});
-
 //add workflow with file(final)
 router.post('/addv2', async (req, res) => {
     let rawFlows = req.body.flow; // Incoming data from the frontend
@@ -139,7 +122,7 @@ router.post('/addv2', async (req, res) => {
     }
 });
 
-//list workflow
+//list workflow by key
 router.post('/fetch', async (req, res) => {
     const {key} = req.body; 
     console.log('key:', key);

@@ -137,6 +137,7 @@ const mail = require('./router/mail')
 const otp = require('./router/otp')
 const environment = require('./router/environment')
 const workflow = require('./router/workflow')
+const keyword = require('./router/keyword')
 const authorization = require('./function/auth')
 
 //middleware
@@ -149,6 +150,7 @@ app.use('/mail', mail)
 app.use('/otp', otp)
 app.use('/environment', environment)
 app.use('/workflow', workflow)
+app.use('/keyword',keyword)
 app.get('/', async (req, res) => {
 	try {
 		const response = { message: 'masfob server dev' }

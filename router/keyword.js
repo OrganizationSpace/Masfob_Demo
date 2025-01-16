@@ -79,7 +79,7 @@ router.post('/fetch', async (req, res) => {
 
 //method 2
 //fetch workflow by keyword
-router.post('/fetch', async (req, res, next) => {
+router.post('/fetchv2', async (req, res, next) => {
     const { key } = req.body;
 
     try {
@@ -135,7 +135,7 @@ router.post('/delete', async (req, res) => {
 
 //method 2
 //delete
-router.post('/delete',async(req,res, next)=>{
+router.post('/deletev2',async(req,res, next)=>{
     const {id} = req.body;
     try{
         const delete_keyword = await keyword_.deleteKeyword({ id });

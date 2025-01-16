@@ -43,6 +43,14 @@ const workflowSchema = new mongoose.Schema(
       type: String,
       
     },
+    type: {
+      type: String,
+      
+    },
+    label: {
+      type: String,
+      
+    },
     question: {
       type: String,
       

@@ -138,7 +138,7 @@ router.post('/fetch', async (req, res) => {
 );
 
 //list all workflow
-router.post('/list', async (req, res) => {
+router.get('/list', async (req, res) => {
   
     try {
         const workflows = await workflow.list({}); 

@@ -45,7 +45,7 @@ const EdgeSchema = new mongoose.Schema({
 const WorkflowSchema = new mongoose.Schema(
   {
     id: { type: String },
-    name: { type: String },
+    name: { type: String , required: true},
     question: { type: String }, // Added from the old schema
     node_type: { type: String },
     answer: AnswerSchema, // Reuses the enhanced AnswerSchema

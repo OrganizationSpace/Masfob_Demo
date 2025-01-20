@@ -40,12 +40,12 @@ router.post('/addv2', async (req, res) => {
 
         // Process each flow in the array
         for (const flow of rawFlows) {
-            if (!flow.id || !flow.name || !flow.answer || !flow.answer.url) {
-                return res.status(400).json({
-                    success: false,
-                    message: `Each flow must have 'id', 'name', and 'answer.url' fields.`,
-                });
-            }
+            // if (!flow.id || !flow.name || !flow.answer || !flow.answer.url || !flow.type) {
+            //     return res.status(400).json({
+            //         success: false,
+            //         message: `Each flow must have 'id', 'name', and 'answer.url' fields.`,
+            //     });
+            // }
             //const node_id = flow.id;//id(node_id) from flow to find asset
             let fileType;
             let fileUrl = flow.answer.url;// url(name) from flow to find asset
@@ -72,6 +72,7 @@ router.post('/addv2', async (req, res) => {
             const workflowToSave = {
                 id: flow.id,
                 name: flow.name,
+                node_type: flow.node_type,              
                 question: flow.question || '',
                 answer: {
                     linkType: fileType,
@@ -94,6 +95,7 @@ router.post('/addv2', async (req, res) => {
                 processedWorkflows.push({
                     flowId: flow.id,
                     workflow: savedWorkflow,
+                   // type:flow.type,
                 });
             } catch (error) {
                 console.error('Error saving workflow:', error.message);

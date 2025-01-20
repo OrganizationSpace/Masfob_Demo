@@ -27,7 +27,7 @@ async delete({id}) {
         data,
         {
           headers: { 
-            Authorization:`Bearer EACCqGGtJE2oBOZBLmtRlZAwrq7ek13m2TyEyddIMZBaZCLmPjC8OeuGZAnnpG8Ltwk65NKisUBX1D8wg0wgC9PLZARURaoxauZAK2rBCZASjW3BTKtScfGuviKJiZBPaV0UQQRTvYf2qqkcgw3IU0Ge5ysAe2EhGriWniCq1b4fq7ZAMK9mJ2oCeTZCJknFTgs0Cde5YcqacSuzNMhK5eCRJyt0rMyvtF7v8qIARdvW`,
+            Authorization:`Bearer ${process.env.TOKEN}`,
               'Content-Type': 'application/json',
           },
         }
@@ -76,7 +76,7 @@ async delete({id}) {
       "type": "reply",
       "reply": {
         "id": "change-button",
-        "title": labelOne,
+        "title": labelOne || '',
       }
       },
       {
@@ -98,7 +98,7 @@ async delete({id}) {
                 data,
                 {
                     headers: {
-                        'Authorization': `Bearer EACCqGGtJE2oBOzpiGECWYwX0ZAd1vZAIPBEPLg6P8HO1FuvziTkWovPC4sKYeYrrSRgMnAXgn4hDS8SSDwJoPunmdOf9s61XKhli8SpsUf3bBSZBL3RWDGfQPFaJrMSwJC4EOZAccSdHRwzeinDpBFZC0ZAEhjTlQeFKyfHrAa1IPvE240IOZAZBQe3x4eLgNKgfZAh6ZB493BOZAgsWNsq9aBcwOnZAxZAk28IZAgnc4ZD`,
+                        'Authorization': `Bearer ${process.env.TOKEN}`,
                         'Content-Type': 'application/json',
                     },
                 }
@@ -163,6 +163,7 @@ async delete({id}) {
     }
   }
   
+
   //send message
   async sendMessage({ preparedMessage }) {
     try {
@@ -171,7 +172,7 @@ async delete({id}) {
             preparedMessage,
             {
                 headers: {
-                    Authorization: `Bearer EACCqGGtJE2oBOZBBplgwwbrYvvVM8IqsYNjZA7gLahbNZAQVJX9NbfmZA3vOl7cJ0diha9ZAoKU76E0P6KxkzZAebpMLBQHWQmtI4ASwsecBB8iR3midh3gwqmUnBAkTzo8ZBEHMiD5kPsUZBwcv0OA44KGZBfmcAY2BGnN3wC4Bde3sFtgZCqYByntPqOFpsPBgqAZBWNlI2hNmfiSDDhCQc7z9LTgZB6U3SCkzsp3N`,
+                    Authorization: `Bearer ${process.env.TOKEN}`,
                     'Content-Type': 'application/json',
                 },
             }
@@ -180,58 +181,301 @@ async delete({id}) {
         console.log('WhatsApp API response data:', result.data);
         return result;
     } catch (error) {
-        console.error('Error in sendMessage:', error);
+        console.error('Error in sendMessage:', error.response?.data || error.message);
         throw error;
     }
   }
-  
-  // Prepare message data using the fetched workflow and type
-  async prepareMessageData({ fetchedWorkflow }) {
-    try {
-        const { link, text, button, linkType } = fetchedWorkflow.answer;
-        console.log('Link:', link);
-        console.log('Text:', text);
-        console.log('LinkType:', linkType);
-  
-        const labelOne = button[0].label;
-        const labelTwo = button[1].label;
-  
-        console.log('Button labels:', labelOne, labelTwo);
-  
-        // Now set the type link and other parameters based on the `type`
-        const data = {
-            "messaging_product": "whatsapp",
-            "recipient_type": "individual",
-            "to": 917305153529,
-            "type": "interactive",
-            "interactive": {
-                "type": "button",
-                "header": {
-                    "type": linkType, // LinkType will depend on your `type` value
-                    [linkType]: { "link":link }, // Set link dynamically based on type
-                },
-                "body": { "text":text },
-                "action": {
-                    "buttons": [
-                        {
-                            "type": "reply",
-                            "reply": { "id": "change-button", "title": labelOne },
-                        },
-                        {
-                            "type": "reply",
-                            "reply": { "id": "cancel-button", "title": labelTwo },
-                        },
-                    ],
-                },
+
+
+
+// //updated one with or without button
+// async prepareMessageData({ fetchedWorkflow }) {
+//   try {
+//       if (!fetchedWorkflow || !fetchedWorkflow.answer) {
+//           throw new Error('Workflow or answer not found.');
+//       }
+
+//       const { link, text, button = [], linkType } = fetchedWorkflow.answer;
+//       console.log('Link:', link);
+//       console.log('Text:', text);
+//       console.log('LinkType:', linkType);
+
+//      // Safely access button labels with default values
+//       const labelOne = button[0]?.label || 'Button 1';
+//       const labelTwo = button[1]?.label || 'Button 2';
+
+//      // Now set the type link and other parameters based on the `type`
+//       const data = {
+//           "messaging_product": "whatsapp",
+//           "recipient_type": "individual",
+//           "to": 919566899489,
+//           "type": "interactive",
+//           "interactive": {
+//               "type": "button",
+//               "header": {
+//                   "type": linkType, // LinkType will depend on your `type` value
+//                   [linkType]: { "link": link }, // Set link dynamically based on type
+//               },
+//               "body": { "text": text },
+//               "action": {
+//                   "buttons": [
+//                       {
+//                           "type": "reply",
+//                           "reply": { "id": "change-button", "title": labelOne },
+//                       },
+//                       {
+//                           "type": "reply",
+//                           "reply": { "id": "cancel-button", "title": labelTwo },
+//                       },
+//                   ],
+//               },
+//           },
+//       };
+
+//       console.log('Prepared message data:', JSON.stringify(data, null, 2));
+//       return data;
+//   } catch (error) {
+//       console.error('Error in prepareMessageData:', error);
+//       throw error;
+//   }
+// }
+
+// //without header ,body , text and buttons only
+// async prepareMessageData({ fetchedWorkflow }) {
+//   try {
+//     if (!fetchedWorkflow || !fetchedWorkflow.answer) {
+//       throw new Error("Workflow or answer not found.");
+//     }
+
+//     const { link, text, button = [], linkType } = fetchedWorkflow.answer;
+//     console.log("Link:", link);
+//     console.log("Text:", text);
+//     console.log("LinkType:", linkType);
+
+//    // Safely access button labels with default values
+//     const labelOne = button[0]?.label || '';
+//     const labelTwo = button[1]?.label || '';
+
+//    // Base message structure
+//     const data = {
+//       messaging_product: "whatsapp",
+//       recipient_type: "individual",
+//       to: 919566899489, // Replace with dynamic recipient if needed
+//       type: "interactive",
+//       interactive: {
+//         type: "button",
+//         action: {
+//           buttons: [],
+//         },
+//       },
+//     };
+
+//     //Add buttons if available
+//     if (button.length > 0) {
+//       data.interactive.action.buttons = button.map((btn, index) => ({
+//         type: "reply",
+//         reply: {
+//           id: `button-${index + 1}`,
+//           title: btn.label || `Button ${index + 1}`,
+//         },
+//       }));
+//     } else {
+//      // Add default buttons if none are provided
+//       data.interactive.action.buttons = [
+//         {
+//           type: "reply",
+//           reply: { id: "change-button", title: labelOne },
+//         },
+//         {
+//           type: "reply",
+//           reply: { id: "cancel-button", title: labelTwo },
+//         },
+//       ];
+//     }
+
+// //    Add header if `linkType` and `link` are provided
+//     if (linkType && link) {
+//       data.interactive.header = {
+//         type: linkType,
+//         [linkType]: { link: link },
+//       };
+//     }
+
+//     //Add body if `text` is provided
+//     if (text) {
+//       data.interactive.body = { text };
+//      }
+//     else {
+//      // Add a fallback message if no text is provided
+//       data.interactive.body = { text: "Please choose an option." };
+//     }
+
+//    // Handle fallback case where there are no header, body, or buttons
+//     if (!linkType && !link && !text && button.length === 0) {
+//       data.type = "text";
+//       data.text = { body: "Default fallback message" };
+//       delete data.interactive; // Remove the interactive field for a plain text message
+//     }
+
+//     console.log("Prepared message data:", JSON.stringify(data, null, 2));
+//     return data;
+//   } catch (error) {
+//     console.error("Error in prepareMessageData:", error);
+//     throw error;
+//   }
+// }
+
+// //image and text only
+// async prepareMessageData({ fetchedWorkflow }) {
+//   try {
+//     if (!fetchedWorkflow || !fetchedWorkflow.answer) {
+//       throw new Error("Workflow or answer not found.");
+//     }
+
+//     const { link, text, button = [], linkType } = fetchedWorkflow.answer;
+//     console.log("Link:", link);
+//     console.log("Text:", text);
+//     console.log("LinkType:", linkType);
+
+//     // Base message structure for an image
+//     const data = {
+//       messaging_product: "whatsapp",
+//       recipient_type: "individual",
+//       to: 919566899489, // Replace with dynamic recipient if needed
+//       type: "image",
+//       image: {
+//         link: link, // Image link from the fetchedWorkflow
+//         caption: text || "Default caption message", // Use text for the caption or provide a fallback
+//       },
+//     };
+
+//     // Handle case where no link or text is provided
+//     if (!link) {
+//       throw new Error("Image link is required.");
+//     }
+
+//     console.log("Prepared message data:", JSON.stringify(data, null, 2));
+//     return data;
+//   } catch (error) {
+//     console.error("Error in prepareMessageData:", error);
+//     throw error;
+//   }
+// }
+
+// //text only
+// async prepareMessageData({ fetchedWorkflow }) {
+//   try {
+//     if (!fetchedWorkflow || !fetchedWorkflow.answer) {
+//       throw new Error("Workflow or answer not found.");
+//     }
+
+//     const { text} = fetchedWorkflow.answer;
+//     console.log("Text:", text);
+
+//  // Use the provided text or fallback to sample text
+//  const messageText = text || "This is a sample text message."; // Default sample text
+
+//     // Base message structure for text-only messages
+//     const data = {
+//       messaging_product: "whatsapp",
+//       recipient_type: "individual",
+//       to: 919566899489, // Replace with dynamic recipient if needed
+//       type: "text",
+//       text: {
+//         body: messageText, // Use the provided text
+//       },
+//     };
+
+//     console.log("Prepared message data:", JSON.stringify(data, null, 2));
+//     return data;
+//   } catch (error) {
+//     console.error("Error in prepareMessageData:", error);
+//     throw error;
+//   }
+// }
+
+//final
+async prepareMessageData({ fetchedWorkflow }) {
+  try {
+    if (!fetchedWorkflow || !fetchedWorkflow.answer) {
+      throw new Error("Workflow or answer not found.");
+    }
+
+    const { link, text, button = [], linkType } = fetchedWorkflow.answer;
+    console.log("Link:", link);
+    console.log("Text:", text);
+    console.log("LinkType:", linkType);
+    console.log("Buttons:", button);
+
+    // Ensure messaging_product is always included
+    const data = {
+      messaging_product: "whatsapp",  // Make sure this is always present
+      recipient_type: "individual",
+      to: 919566899489, // Replace with dynamic recipient if needed
+    };
+
+    // Handle plain text-only message
+    if (text && !link && button.length === 0) {
+      data.type = "text";
+      data.text = {
+        body: text,
+      };
+      console.log("Prepared message data (Text-only):", JSON.stringify(data, null, 2));
+      return data;
+    } else if (button.length > 0) {
+      // Handle interactive message with buttons
+      data.type = "interactive";
+      data.interactive = {
+        type: "button",
+        body: {
+          text: text || "Default button text", // Default button text
+        },
+        action: {
+          buttons: button.map((btn, index) => ({
+            type: "reply",
+            reply: {
+              id: `button-${index + 1}`,
+              title: btn.label || `Button ${index + 1}`, // Default button label
             },
-        };
-  
-        console.log('Prepared message data:', data);
-        return data;
-    } catch (error) {
-        console.error('Error in prepareMessageData:', error);
-        throw error;
+          })),
+        },
+      };
+      console.log("Prepared message data (Interactive):", JSON.stringify(data, null, 2));
+      return data;
+    } else if (link && linkType && !text) {
+      // Handle image without text
+      data.type = "image";
+      data.image = {
+        link: link,
+      };
+      console.log("Prepared message data (Image):", JSON.stringify(data, null, 2));
+      return data;
+    } else if (link && linkType && text) {
+      // Handle image with text
+      data.type = "image";
+      data.image = {
+        link: link,
+        caption: text,
+      };
+      console.log("Prepared message data (Image with Caption):", JSON.stringify(data, null, 2));
+      return data;
     }
+
+    // If no valid data, log and return null
+    console.log("No valid data to prepare for sending.");
+    return null;
+  } catch (error) {
+    console.error("Error in prepareMessageData:", error);
+    throw error;
   }
+}
+
+
+
+
+
+
+
+
 }
 module.exports = metaController;

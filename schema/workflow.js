@@ -43,7 +43,7 @@ const workflowSchema = new mongoose.Schema(
       type: String,
       
     },
-    type: {
+   node_type: {
       type: String,
       
     },

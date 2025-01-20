@@ -16,7 +16,7 @@ const cors = require('./function/cors')
 const errorHandler = require('./function/error_handler')
 const connectRabbitMQ = require('./rabbitmq/rabbitmq')
 const { setChannel, sendToQueue, ack, nack } = require('./rabbitmq/channel')
-
+const generateUniqueId = require('./function/generatedUniqueId')
 //dummy
 const app = express()
 const port = process.env.PORT || 3000
@@ -139,7 +139,7 @@ const workflow = require('./router/workflow')
 const keyword = require('./router/keyword')
 const meta = require('./router/meta')
 //const authorization = require('./function/auth')
-
+const flow = require('./router/flow')
 //middleware
 app.use('/organization', organization)
 app.use('/agent', agent)
@@ -152,6 +152,7 @@ app.use('/environment', environment)
 app.use('/workflow', workflow)
 app.use('/keyword',keyword)
 app.use('/meta', meta)
+app.use('/flow', flow)
 
 app.get('/', async (req, res) => {
 	try {

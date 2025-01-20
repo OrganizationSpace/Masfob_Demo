@@ -3,17 +3,21 @@ const router = express.Router();
 const Meta = require('../controller/meta'); 
 const workflow = new Meta();
 
+
 //send normal message  
 router.post('/meta',async (req, res) => {
-	
 	const data = req.body
 	try {
 		const result = await workflow.meta({data})
-		res.status(200).json({ success: true})
+		console.log('result:', result)
+		res.status(200).json({ success: true,data:result.data})
 	} catch (error) {
 		console.error(error)
-		res.status(500).json({ success: false, message: error.message, error })
-		next(error)
+		res.status(500).json({ 
+			success: false, 
+			message: error.response?.data?.error?.message || error.message,
+            error: error.response?.data || error.message,
+		})
 	}
 })
 
@@ -23,11 +27,15 @@ router.post('/urlmeta',async (req, res) => {
 	const data = req.body
 	try {
 		const result = await workflow.meta({data})
+		console.log('result:', result)
 		res.status(200).json({ success: true})
 	} catch (error) {
 		console.error(error)
-		res.status(500).json({ success: false, message: error.message, error })
-		next(error)
+		res.status(500).json({ 
+			success: false, 
+			message: error.response?.data?.error?.message || error.message,
+            error: error.response?.data || error.message,
+		})
 	}
 })
 
@@ -101,6 +109,7 @@ router.post('/buttonmeta',async (req, res) => {
 	const data = req.body
 	try {
 		const result = await workflow.meta({data})
+		console.log('result:', result)
 		res.status(200).json({ success: true})
 	} catch (error) {
 		console.error(error)
@@ -118,7 +127,7 @@ router.post('/imgmeta', async (req, res) => {
   const data= {
 	"messaging_product": "whatsapp",
 	"recipient_type": "individual",
-	"to": 917305153529, // WhatsApp user ID
+	"to": 919566899489, // WhatsApp user ID
 	"type": "interactive",
 	"interactive": {
 	  "type": "button",
@@ -190,7 +199,7 @@ router.post('/send',async (req, res) => {
 	} catch (error) {
 		console.error(error)
 		res.status(500).json({ success: false, message: error.message, error })
-		next(error)
+		//next(error)
 	}
 })
 
@@ -260,18 +269,18 @@ router.post('/sendformat', async (req, res) => {
 
         // Fetch the workflow by name and type
         const fetchedWorkflow = await workflow.fetchWorkflowByNameAndType({ name });
-        if (!fetchedWorkflow) {
-            console.log('Workflow not found for name and type:', name, type);
-            throw new Error(`Workflow with name "${name}" and type "${type}" not found.`);
-        }
+        // if (!fetchedWorkflow) {
+        //     console.log('Workflow not found for name and type:', name, type);
+        //     throw new Error(`Workflow with name "${name}" and type "${type}" not found.`);
+        // }
 
         // Prepare the message data
         const preparedMessageData = await workflow.prepareMessageData({ fetchedWorkflow });
-        console.log('Prepared message data:', preparedMessageData);
+       // console.log('Prepared message data:', preparedMessageData);
 
         // Send the message
         const apiResponse = await workflow.sendMessage({ preparedMessage: preparedMessageData });
-        console.log('WhatsApp API Response:', apiResponse.data);
+        //console.log('WhatsApp API Response:', apiResponse.data);
 
         return res.status(200).json({
             success: true,
@@ -287,7 +296,7 @@ router.post('/sendformat', async (req, res) => {
             error: error.stack,
         });
 
-        next(error);
+    //    next(error);
     }
 });
 

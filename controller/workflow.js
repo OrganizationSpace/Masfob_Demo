@@ -48,7 +48,7 @@ async addWorkflows({ newWorkflow }) {
 //final
 async fetchAsset({ name }) {
   try {
-    const result = await Asset_.findOne({ name: name }, { url: 1, extension: 1 ,type: 1});
+    const result = await Asset_.findOne({ name: name }, { url: 1, size: 1 ,type: 1,format: 1});
     return result // Return the asset and file type properly
   } catch (error) {
     console.error('Error finding asset in database:', error.message);

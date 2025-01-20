@@ -138,6 +138,7 @@ const environment = require('./router/environment')
 const workflow = require('./router/workflow')
 const keyword = require('./router/keyword')
 const meta = require('./router/meta')
+const test = require('./router/test')
 //const authorization = require('./function/auth')
 const flow = require('./router/flow')
 //middleware
@@ -153,6 +154,7 @@ app.use('/workflow', workflow)
 app.use('/keyword',keyword)
 app.use('/meta', meta)
 app.use('/flow', flow)
+app.use('/test',test)
 
 app.get('/', async (req, res) => {
 	try {
